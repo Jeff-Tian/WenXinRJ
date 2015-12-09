@@ -35,3 +35,4 @@ build/
 .rvmrc
 outputs.html
 .idea
+input.json

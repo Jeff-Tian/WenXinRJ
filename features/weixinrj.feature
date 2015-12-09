@@ -1,9 +1,10 @@
 Feature: Weixinrj has Ranking function
 
-  Scenario: Log in
+  Scenario: Log in And Export the data
     When I go to "http://weixinrj.com/index.php?g=Home&m=Index&a=login"
-    When I fill in "username" with "你的用户名"
-    And I fill in "password" with "你的密码"
+    And I read the username and password from the "input.json" file
+    And I fill in "username" with the username I read
+    And I fill in "password" with the password I read
     And I wait for human to input the captcha
     And I press "登录"
     And I wait for "5" seconds
@@ -13,4 +14,4 @@ Feature: Weixinrj has Ranking function
     And I click "人气榜"
     And I copy the table content page by page
     And I output the copied contents
-    Then I wait for "60" seconds
+    Then I wait for "5" seconds

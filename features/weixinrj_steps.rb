@@ -44,8 +44,12 @@ When /^I copy the table content$/ do
 end
 
 When /^I copy the table content page by page$/ do
+    html = page.evaluate_script("$('table.ListProduct thead').attr('outerHTML')")
+    myPages.push(html)
+    myPages.push('<tbody>')
+
     while 0 < 5 do
-        html = page.evaluate_script('document.getElementsByClassName("ListProduct")[0].innerHTML')
+        html = page.evaluate_script("$('table.ListProduct tbody').attr('innerHTML')")
         myPages.push(html)
 
         if page.has_content?('下一页')
@@ -54,12 +58,16 @@ When /^I copy the table content page by page$/ do
             break
         end
     end
+
+    myPages.push('</tbody>')
 end
 
 When /^I output the copied contents$/ do
     puts myPages.join
     File.open('outputs.html', 'w') do |f|
+        f.puts '<!DOCTYPE html><html><head><meta charset="utf-8"></head><body><table border="1">'
         f.puts myPages.join
+        f.puts '</table></body></html>'
     end
 end
 
@@ -77,4 +85,17 @@ end
 
 Then /^I should see "([^"]*)"$/ do |text|
   page.should have_content(text)
+end
+
+inputs = {}
+When(/^I read the username and password from the "([^"]+)" file$/) do |fileName|
+  inputs = JSON.parse(File.read(fileName))
+end
+
+When(/^I fill in "(.*?)" with the username I read$/) do |field|
+  fill_in(field, :with => inputs["username"], :match => :prefer_exact)
+end
+
+When(/^I fill in "(.*?)" with the password I read$/) do |field|
+  fill_in(field, :with => inputs["password"], :match => :prefer_exact)
 end

@@ -2,6 +2,8 @@ require 'capybara'
 require 'capybara/cucumber'
 require 'rspec'
 require 'selenium/webdriver'
+require 'rubygems'
+require 'json'
 
 #caps = Selenium::WebDriver::Remote::Capabilities.firefox
 #caps.version = "8"
