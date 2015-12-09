@@ -30,6 +30,10 @@ cucumber
 # 运行时的效果截屏
 ![运行时的效果截屏](img/screenshot.gif "运行时的效果截屏")
 
+# 导出的结果 outputs.html 在浏览器中打开
+![结果](img/screenshot1.png "结果")
+![结果](img/screenshot2.png "结果")
+
 # 参考资料
 
 https://github.com/jnicklas/capybara
