@@ -13,7 +13,7 @@ When(/^I wait for "(.*?)" seconds$/) do |seconds|
 end
 
 When(/^I close the AD window$/) do
-  sleep 1
+  sleep 2
   page.evaluate_script("closeAD()")
 end
 
@@ -45,24 +45,23 @@ When /^I copy the table content$/ do
 end
 
 When /^I copy the table content page by page$/ do
+  sleep 2
   html = page.evaluate_script("$('table.ListProduct thead').attr('outerHTML')")
   myPages.push(html)
   myPages.push('<tbody>')
 
   puts html
 
-  sleep 10000
+  while 0 < 5 do
+    html = page.evaluate_script("$('table.ListProduct tbody').attr('innerHTML')")
+    myPages.push(html)
 
-  # while 0 < 5 do
-  #   html = page.evaluate_script("$('table.ListProduct tbody').attr('innerHTML')")
-  #   myPages.push(html)
-  #
-  #   if page.has_content?('下一页')
-  #     click_link('下一页')
-  #   else
-  #     break
-  #   end
-  # end
+    if page.has_content?('下一页')
+      click_link('下一页')
+    else
+      break
+    end
+  end
 
   myPages.push('</tbody>')
 end
